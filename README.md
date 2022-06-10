@@ -1,1 +1,3 @@
-# jcds-capstone-project-1
+# Capstone Project Module 1
+
+Capstone Project Module 1 dengan tema Rental Mobil. Program ini adalah mockup sebuah software rental mobil "Al Rent" dengan perspektif target pengguna yaitu pelanggan dan staf. Pelanggan dapat merental dan mengembalikan mobil, sedangkan staf dapat mengatur inventaris rental mobil dengan fungsi-fungsi seperti menambah mobil, menghapus mobil dari daftar inventaris/stok, dan mengganti keterangan mobil dalam daftar inventaris.
