@@ -159,7 +159,7 @@ def inputDurasi():
             print("Silakan coba lagi!")
 
 def inputSaldo():
-    global cart
+    
     print(f'Saldo anda adalah: {cart["saldo"]}')
     print("Masukkan saldo anda.")
     print(zero_return)
@@ -211,7 +211,7 @@ def listPenyewa(dec=0):
     print(straightLine + "\n")
 
 def carSelect():
-    global cart
+    
     listMobil()
     print("Masukkan angka (\"No\" sesuai tabel) mobil keinginan anda.")
     print(zero_return)
@@ -226,7 +226,7 @@ def carSelect():
         return decision
         
 def checkout():
-    global cart
+    
     index = cart["index"]-1
     total = cart["durasi"] * stokMobil[index]["sewa"]
     print(f'Total: {stokMobil[index]["sewa"]} * {cart["durasi"]} Hari = Rp. {total}')
@@ -245,9 +245,15 @@ def checkout():
     return cart
 
 def ubahKeterangan(inputMobil=0,index=0):
-    global tambahanTemp
+    
     if inputMobil != 0:
-        tambahanTemp = inputMobil
+        tambahanTemp["plat"] = inputMobil["plat"]
+        tambahanTemp["model"] = inputMobil["model"]
+        tambahanTemp["manufaktur"] = inputMobil["manufaktur"]
+        tambahanTemp["tahun"] = inputMobil["tahun"]
+        tambahanTemp["sewa"] = inputMobil["sewa"] 
+        tambahanTemp["transmisi"] = inputMobil["transmisi"]
+        tambahanTemp["status"] = inputMobil["status"]
 
     while True:
         print ("\n{:<3} {:<10} {:<10} {:<11} {:<8} {:<12} {:<10} {:<6}".format(
@@ -335,7 +341,7 @@ Silakan pilih data yang ingin anda ganti.''')
             print("\nPilihan tidak valid! Silahkan cek kembali pilihan anda.")
 
 def updateStok(values, infoType):             # Change value with a key
-    global stokMobil
+    
     if infoType == "A":                                   # Update through renting a car, change status to 'False' (unavailable)
         index = values["index"]-1                   # Minus 1 to fit the display in list
         stokMobil[index]["status"]["tersedia"] = False
@@ -371,8 +377,7 @@ def cleartambahanTemp():
 }
 
 def hapusStok(entry):
-    global stokMobil
-    stokMobil.pop(entry)
+    stokMobil.pop(entry)            # entry is index
 
 decision = 1
 
@@ -572,22 +577,23 @@ while True:
 
             elif decision == 3:
                 print("\nBerikut adalah keseluruhan stok mobil.")
-                print("Silakan pilih keterangan mobil yang ingin anda hapus.")
                 listMobil()
                 print(zero_return)
                 decision = int(input(">> "))
                 if decision == 0:
                     continue
                 else: 
-                    keteranganBaru = ubahKeterangan(stokMobil[decision-1],decision)
-                    if keteranganBaru == 0:
-                        print("Tidak ada data yang berubah.")
-                        cleartambahanTemp()
-                        continue
-                    else:
+                    keteranganBaru = stokMobil[decision-1]
+                    keteranganBaru = ubahKeterangan(keteranganBaru,decision)
+                    if keteranganBaru != 0:
                         updateStok(keteranganBaru, decision-1)          # int/index means that a singular entry in the stokMobil is updated
                         listMobil()
                         cleartambahanTemp()
+                    else:
+                        print("Tidak ada data yang berubah.")
+                        cleartambahanTemp()
+                        continue
+
             elif decision == 0:
                 break
             else:
