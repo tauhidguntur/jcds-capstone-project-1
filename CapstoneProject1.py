@@ -83,6 +83,40 @@ cart = {
     "saldo" : 0
 }
 
+
+straightLine = "-"*83
+
+doubleStraightLine = "="*83
+
+tambahanTemp = {
+    "plat" : "",
+    "model" : "",
+    "manufaktur" : "",
+    "tahun" : "",
+    "sewa"  : "",
+    "transmisi" : "",
+    "status" : {
+        "tersedia"  : True,
+        "nama"   : "",
+        "nik"       : "",
+        "durasi" :  0
+    }
+}
+
+zero_return = ('''-----------------------------------------------------------------------------------
+0. Kembali''')
+
+alRentLogo = ('''
+                  d8888 888        8888888b.                   888    
+                 d88888 888        888   Y88b                  888    
+                d88P888 888        888    888                  888    
+               d88P 888 888        888   d88P .d88b.  88888b.  888888 
+              d88P  888 888        8888888P" d8P  Y8b 888 "88b 888    
+             d88P   888 888 888888 888 T88b  88888888 888  888 888    
+            d8888888888 888        888  T88b Y8b.     888  888 Y88b.  
+           d88P     888 888        888   T88b "Y8888  888  888  "Y888 
+                                                      "Al-Rent a Car!"''')
+
 def cekKetersediaan(checker):         # Output: True/False/None
     if isinstance(checker, int) == True:          # Input is index
         if (checker in range(0, len(stokMobil))) == True:
@@ -338,44 +372,9 @@ def cleartambahanTemp():
     }
 }
 
-straightLine = "-"*83
-
-doubleStraightLine = "="*83
-
-tambahanTemp = {
-    "plat" : "",
-    "model" : "",
-    "manufaktur" : "",
-    "tahun" : "",
-    "sewa"  : "",
-    "transmisi" : "",
-    "status" : {
-        "tersedia"  : True,
-        "nama"   : "",
-        "nik"       : "",
-        "durasi" :  0
-    }
-}
-
-zero_return = ('''-----------------------------------------------------------------------------------
-0. Kembali''')
-
-alRentLogo = ('''
-                  d8888 888        8888888b.                   888    
-                 d88888 888        888   Y88b                  888    
-                d88P888 888        888    888                  888    
-               d88P 888 888        888   d88P .d88b.  88888b.  888888 
-              d88P  888 888        8888888P" d8P  Y8b 888 "88b 888    
-             d88P   888 888 888888 888 T88b  88888888 888  888 888    
-            d8888888888 888        888  T88b Y8b.     888  888 Y88b.  
-           d88P     888 888        888   T88b "Y8888  888  888  "Y888 
-                                                      "Al-Rent a Car!"''')
-
-
 decision = 1
 
-
-# Main Starts Here
+## Program Starts Here
 print(alRentLogo)
 
 while True:
