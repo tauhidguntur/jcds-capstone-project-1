@@ -268,7 +268,7 @@ def ubahKeterangan(inputMobil=0,index=0):
 5. Ubah Harga Sewa/Hari
 6. Ubah Transmisi
 7. Ubah ketersediaan
-8. Selesai dan tambahkan
+8. Selesai
 
 Silakan pilih data yang ingin anda ganti.''')
         print(zero_return)
@@ -334,25 +334,23 @@ Silakan pilih data yang ingin anda ganti.''')
         else:
             print("\nPilihan tidak valid! Silahkan cek kembali pilihan anda.")
 
-def updateStok(values, infoType, specificIndex=None):             # Change value with a key
-    if specificIndex == None:
-        if infoType == 1:                                   # Update through renting a car, change status to 'False' (unavailable)
-            index = values["index"]-1                   # Minus 1 to fit the display in list
-            stokMobil[index]["status"]["tersedia"] = False
-            stokMobil[index]["status"]["nama"] = values["nama"]
-            stokMobil[index]["status"]["nik"] = values["nik"]
-            stokMobil[index]["status"]["durasi"] = values["durasi"]
-        elif infoType == 2:                                            # Update through returning a car, change status to 'True' (available)
-            stokMobil[values]["status"]["tersedia"] = True
-            stokMobil[values]["status"]["nama"] = ""
-            stokMobil[values]["status"]["nik"] = ""
-            stokMobil[values]["status"]["durasi"] = 0
-        elif infoType == 3:
-            stokMobil.append(values)
-        else:
-            pass
-    else:                                                 # Update a single value within the stok (used in pengaturan)
-        stokMobil[specificIndex] = values
+def updateStok(values, infoType):             # Change value with a key
+    global stokMobil
+    if infoType == "A":                                   # Update through renting a car, change status to 'False' (unavailable)
+        index = values["index"]-1                   # Minus 1 to fit the display in list
+        stokMobil[index]["status"]["tersedia"] = False
+        stokMobil[index]["status"]["nama"] = values["nama"]
+        stokMobil[index]["status"]["nik"] = values["nik"]
+        stokMobil[index]["status"]["durasi"] = values["durasi"]
+    elif infoType == "B":                                            # Update through returning a car, change status to 'True' (available)
+        stokMobil[values]["status"]["tersedia"] = True
+        stokMobil[values]["status"]["nama"] = ""
+        stokMobil[values]["status"]["nik"] = ""
+        stokMobil[values]["status"]["durasi"] = 0
+    elif infoType == "C":
+        stokMobil.append(values)
+    else:                                                 # Update a single entry within the stok (used in pengaturan)
+        stokMobil[infoType] = values
 
 def cleartambahanTemp():
     global tambahanTemp
@@ -371,6 +369,10 @@ def cleartambahanTemp():
         "durasi" :  0
     }
 }
+
+def hapusStok(entry):
+    global stokMobil
+    stokMobil.pop(entry)
 
 decision = 1
 
@@ -447,7 +449,7 @@ while True:
                                     # cart.clear()
                                     break
                                 else:
-                                    updateStok(exitCode,1)      # the exitCode contains data of the renter, updateStok(-,1) means stok is updated by renting
+                                    updateStok(exitCode,"A")      # the exitCode contains data of the renter, updateStok(-,1) means stok is updated by renting
                                     decision = 0
                                     print("Terima kasih! Hati-hati di jalan!")
                                     # cart.clear()
@@ -475,7 +477,7 @@ while True:
             print(zero_return)
             decision = input(">> ")
             if decision == "0":             
-                # because the input has to be string, the checker has to also to be string
+                # because the input has to be string, the checker has to also be string
                 decision = 0
                 break
             elif len(decision) > 3 and decision.isalnum() == True:
@@ -504,7 +506,7 @@ while True:
                     ''')
                     decision = int(input(">> "))
                     if decision == 1:
-                        updateStok(foundIndex,2)
+                        updateStok(foundIndex,"B")
                         listMobil(foundIndex+1)
                         print("Mobil berhasil dikembalikan!")
                         break
@@ -530,7 +532,7 @@ while True:
                 print("\nAnda akan menambahkan kendaraan berikut ke stok mobil.")
                 decision = ubahKeterangan()
                 if decision != 0:
-                    updateStok(tambahanTemp,3)
+                    updateStok(tambahanTemp,"C")
                     listMobil()
                     print("Perubahan berhasil!")
                     cleartambahanTemp()
@@ -559,7 +561,7 @@ while True:
                                 print("Tidak ada data yang berubah.")
                                 break
                             elif decision == 1:
-                                stokMobil.pop(selection-1)
+                                hapusStok(selection-1)
                                 listMobil()
                                 print("Mobil berhasil dihapus dari stok!")
                                 break
@@ -583,7 +585,7 @@ while True:
                         cleartambahanTemp()
                         continue
                     else:
-                        updateStok(keteranganBaru, None, selection)
+                        updateStok(keteranganBaru, decision-1)
                         listMobil()
                         cleartambahanTemp()
             elif decision == 0:
