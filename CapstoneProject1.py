@@ -449,7 +449,7 @@ while True:
                                     # cart.clear()
                                     break
                                 else:
-                                    updateStok(exitCode,"A")      # the exitCode contains data of the renter, updateStok(-,1) means stok is updated by renting
+                                    updateStok(exitCode,"A")      # the exitCode contains data of the renter, updateStok(-,"A") means stok is updated by renting
                                     decision = 0
                                     print("Terima kasih! Hati-hati di jalan!")
                                     # cart.clear()
@@ -506,7 +506,7 @@ while True:
                     ''')
                     decision = int(input(">> "))
                     if decision == 1:
-                        updateStok(foundIndex,"B")
+                        updateStok(foundIndex,"B")          # "B" means the stok is updated through returning a car
                         listMobil(foundIndex+1)
                         print("Mobil berhasil dikembalikan!")
                         break
@@ -532,7 +532,7 @@ while True:
                 print("\nAnda akan menambahkan kendaraan berikut ke stok mobil.")
                 decision = ubahKeterangan()
                 if decision != 0:
-                    updateStok(tambahanTemp,"C")
+                    updateStok(tambahanTemp,"C")        # "C" means updateStok adds an entry to the car stock list (stokMobil)
                     listMobil()
                     print("Perubahan berhasil!")
                     cleartambahanTemp()
@@ -585,7 +585,7 @@ while True:
                         cleartambahanTemp()
                         continue
                     else:
-                        updateStok(keteranganBaru, decision-1)
+                        updateStok(keteranganBaru, decision-1)          # int/index means that a singular entry in the stokMobil is updated
                         listMobil()
                         cleartambahanTemp()
             elif decision == 0:
